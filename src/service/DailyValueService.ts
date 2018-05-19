@@ -2,8 +2,7 @@ import {injectable, inject} from 'inversify';
 import {DailyValue} from '../model/DailyValue';
 import {DailyValueRepository} from '../repository/DailyValueRepository';
 import TYPES from '../types';
-import {DailyValueDTO} from '../model/DailyValueSchema';
-import * as _ from 'lodash';
+import {DailyValueDto} from '../model/DailyValueSchema';
 
 export interface DailyValueService {
     getDailyValues(): Promise<Array<DailyValue>>;
@@ -13,39 +12,41 @@ export interface DailyValueService {
 @injectable()
 export class DailyValueServiceImpl implements DailyValueService {
     @inject(TYPES.DailyValueRepository)
-    private dailyValueRepositoryDb: DailyValueRepository;
+    private dailyValueRepository: DailyValueRepository;
 
     public async getDailyValues(): Promise<Array<DailyValue>> {
-        // grab dailyValues from db
-        const dailyValuesDb: Array<DailyValue> = await this.dailyValueRepositoryDb.findAll().then((a) => a.map((dto: DailyValueDTO) => {
-            return this.toDailyValueDTO(dto);
-        }));
+        const dailyValues: Array<DailyValue> = await this.dailyValueRepository.findAll().then(
+            (dailyValueDtoList: DailyValueDto[]) =>
+                dailyValueDtoList.map((dto: DailyValueDto) => {
+                    return this.toDailyValue(dto);
+                })
+        );
 
-        return _.uniqBy(dailyValuesDb, 'id');
+        return dailyValues;
     }
 
     public async getDailyValue(id: string): Promise<DailyValue> {
-        const dailyValue = await this.dailyValueRepositoryDb.find(id).then((a) => {
-            return this.toDailyValueDTO(a);
+        const dailyValue = await this.dailyValueRepository.find(id).then((dailyValueDto: DailyValueDto) => {
+            return this.toDailyValue(dailyValueDto);
         });
 
         return dailyValue;
     }
 
-    // private toDailyValue(dailyValue: DailyValue): DailyValueDTO {
+    // private toDailyValueDto(dailyValue: DailyValue): DailyValueDto {
     //     return {
     //         units: dailyValue.getUnits,
     //         value: dailyValue.getValue,
-    //         nutrNo: dailyValue.getNutrNo,
+    //         nutr_no: dailyValue.getNutrNo,
     //         id: dailyValue.getId
     //     };
     // }
 
-    private toDailyValueDTO(dailyValueDTO: DailyValueDTO): DailyValue {
+    private toDailyValue(dailyValueDto: DailyValueDto): DailyValue {
         return new DailyValue(
-            dailyValueDTO.units,
-            dailyValueDTO.value,
-            dailyValueDTO.nutr_no,
-            dailyValueDTO.id);
+            dailyValueDto.units,
+            dailyValueDto.value,
+            dailyValueDto.nutr_no,
+            dailyValueDto.id);
     }
 }

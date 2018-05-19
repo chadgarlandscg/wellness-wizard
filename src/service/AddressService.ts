@@ -2,7 +2,7 @@ import {injectable, inject} from 'inversify';
 import {Address} from '../model/Address';
 import {AddressRepository} from '../repository/AddressRepository';
 import TYPES from '../types';
-import {AddressDTO} from '../model/AddressSchema';
+import {AddressDto} from '../model/AddressSchema';
 import * as _ from 'lodash';
 
 export interface AddressService {
@@ -19,38 +19,38 @@ export class AddressServiceImpl implements AddressService {
 
     public async getAddresses(): Promise<Array<Address>> {
         // grab addresses from db
-        const addressesDb: Array<Address> = await this.addressRepositoryDb.findAll().then((a2) => a2.map((dto: AddressDTO) => {
-            return this.toAddressDTO(dto);
+        const addressesDb: Array<Address> = await this.addressRepositoryDb.findAll().then((a2) => a2.map((dto: AddressDto) => {
+            return this.toAddressDto(dto);
         }));
 
         return _.uniqBy(addressesDb, 'id');
     }
 
     public async createAddress(address: Address): Promise<Address> {
-        const addressDTO: AddressDTO = this.toAddress(address);
+        const addressDto: AddressDto = this.toAddress(address);
 
-        const createdDTO: AddressDTO = await this.addressRepositoryDb.create(addressDTO);
+        const createdDto: AddressDto = await this.addressRepositoryDb.create(addressDto);
 
-        return await this.toAddressDTO(createdDTO);
+        return await this.toAddressDto(createdDto);
     }
 
     public async updateAddress(address: Address): Promise<Address> {
-        const addressDTO: AddressDTO = this.toAddress(address);
+        const addressDto: AddressDto = this.toAddress(address);
 
-        const updatedDTO: AddressDTO = await this.addressRepositoryDb.update(addressDTO);
+        const updatedDto: AddressDto = await this.addressRepositoryDb.update(addressDto);
 
-        return await this.toAddressDTO(updatedDTO);
+        return await this.toAddressDto(updatedDto);
     }
 
     public async getAddress(id: string): Promise<Address> {
         const address = await this.addressRepositoryDb.find(id).then((a) => {
-            return this.toAddressDTO(a);
+            return this.toAddressDto(a);
         });
 
         return address;
     }
 
-    private toAddress(address: Address): AddressDTO {
+    private toAddress(address: Address): AddressDto {
         return {
             address1: address.getAddress1,
             address2: address.getAddress2,
@@ -62,14 +62,14 @@ export class AddressServiceImpl implements AddressService {
         };
     }
 
-    private toAddressDTO(addressDTO: AddressDTO): Address {
+    private toAddressDto(addressDto: AddressDto): Address {
         return new Address(
-            addressDTO.address1,
-            addressDTO.address2,
-            addressDTO.city,
-            addressDTO.state,
-            addressDTO.zip,
-            addressDTO.country,
-            addressDTO._id);
+            addressDto.address1,
+            addressDto.address2,
+            addressDto.city,
+            addressDto.state,
+            addressDto.zip,
+            addressDto.country,
+            addressDto._id);
     }
 }

@@ -1,6 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
 
-export interface DailyValueDTO {
+export interface DailyValueDto {
     id?: number;
     units: string;
     value: number;
@@ -11,7 +11,7 @@ export interface DailyValueDTO {
  * TypeORM Schema Config
  */
 @Entity('daily_value')
-export class DailyValueDbSchema implements DailyValueDTO {
+export class DailyValueDbSchema implements DailyValueDto {
     @PrimaryGeneratedColumn()
     // tslint:disable-next-line:variable-name
     public id?: number;

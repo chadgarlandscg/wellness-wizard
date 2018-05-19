@@ -1,6 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
 
-export interface AddressDTO {
+export interface AddressDto {
     _id?: number;
     address1: string;
     address2?: string;
@@ -14,7 +14,7 @@ export interface AddressDTO {
  * TypeORM Schema Config
  */
 @Entity('address')
-export class AddressDbSchema implements AddressDTO {
+export class AddressDbSchema implements AddressDto {
     @PrimaryGeneratedColumn()
     // tslint:disable-next-line:variable-name
     public _id?: number;
