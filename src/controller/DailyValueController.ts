@@ -1,27 +1,21 @@
 import * as express from 'express';
-import {injectable, inject} from 'inversify';
-import TYPES from '../types';
+import {inject} from 'inversify';
+import {controller, httpGet, queryParam, interfaces} from 'inversify-express-utils';
+import TYPES from '../container/types';
 import {DailyValueService} from '../service/DailyValueService';
-import {RegistrableController} from './RegisterableController';
+// tslint:disable:no-unused-variable
 
-@injectable()
-export class DailyValueController implements RegistrableController {
+@controller('/dailyValue')
+export class DailyValueController implements interfaces.Controller {
+    @inject(TYPES.DailyValueService)
     private dailyValueService: DailyValueService;
 
-    constructor(@inject(TYPES.DailyValueService) DailyValueService: DailyValueService) {
-        this.dailyValueService = DailyValueService;
+    @httpGet('/')
+    private async findAll(req: express.Request, res: express.Response, next: express.NextFunction) {
+        return await this.dailyValueService.getDailyValues().catch(err => next(err));
     }
-
-    public register(app: express.Application): void {
-        app.route('/dailyValue')
-            .get(async(req: express.Request, res: express.Response, next: express.NextFunction) => {
-                const dailyValue = await this.dailyValueService.getDailyValues().catch(err => next(err));
-                res.json(dailyValue);
-            });
-        app.route('/dailyValue/:id')
-            .get(async(req: express.Request, res: express.Response, next: express.NextFunction) => {
-                const dailyValue = await this.dailyValueService.getDailyValue(<string> req.params.id).catch(err => next(err));
-                res.json(dailyValue);
-            });
+    @httpGet('/:id')
+    private async findOne(@queryParam('id') id: string, next: express.NextFunction) {
+        return await this.dailyValueService.getDailyValue(id).catch(err => next(err));
     }
 }

@@ -25,6 +25,8 @@
     "express-validation": "^1.0.2",
     "humps": "^2.0.0",
     "inversify": "^4.13.0",
+    "inversify-express-doc": "^1.4.2",
+    "inversify-express-utils": "^6.0.0",
     "ipaddr.js": "^1.5.2",
     "joi": "^10.4.1",
     "knex": "^0.13.0",
