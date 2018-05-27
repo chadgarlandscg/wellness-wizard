@@ -1,10 +1,13 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import TYPES from './types';
-import container from './inversify.config';
+import {getContainer} from './inversify.config';
 import {logger} from './util/Logger';
 import {RegistrableController} from './controller/RegisterableController';
+// import {AsyncContainerModule} from 'inversify';
 
+(async () => {
+const container = await getContainer();
 // create express application
 const app: express.Application = express();
 // let express support JSON bodies
@@ -27,3 +30,5 @@ app.use(function (err: Error, req: express.Request, res: express.Response, next:
 app.listen(3000, function () {
     logger.info('Example app listening on port 3000!');
 });
+
+})();

@@ -1,5 +1,5 @@
 import {injectable, inject} from 'inversify';
-import {Address} from '../model/Address';
+import {Address} from '../wrapper/Address';
 import {AddressRepository} from '../repository/AddressRepository';
 import TYPES from '../types';
 import {AddressDTO} from '../model/AddressSchema';

@@ -2,7 +2,7 @@ import * as express from 'express';
 import {injectable, inject} from 'inversify';
 import TYPES from '../types';
 import {AddressService} from '../service/AddressService';
-import {Address} from '../model/Address';
+import {Address} from '../wrapper/Address';
 import {RegistrableController} from './RegisterableController';
 
 @injectable()
