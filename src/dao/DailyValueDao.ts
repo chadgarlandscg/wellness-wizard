@@ -1,6 +1,5 @@
 import {injectable, inject} from 'inversify';
-import {DailyValueDTO, DailyValueDbSchema} from '../model/DailyValueSchema';
-import {logger} from '../util/Logger';
+import {DailyValueDTO, DailyValueSchema} from '../model/DailyValueSchema';
 import {Repository} from 'typeorm';
 import TYPES from '../types';
 
@@ -11,9 +10,9 @@ export interface DailyValueDao {
 
 @injectable()
 export class DailyValueDaoImpl implements DailyValueDao {
-    private readonly dailyValueRepository: Repository<DailyValueDbSchema>;
+    private readonly dailyValueRepository: Repository<DailyValueSchema>;
     public constructor(
-        @inject(TYPES.DailyValueRepository) dailyValueRepository: Repository<DailyValueDbSchema>
+        @inject(TYPES.DailyValueRepository) dailyValueRepository: Repository<DailyValueSchema>
     ) {
         this.dailyValueRepository = dailyValueRepository;
     }

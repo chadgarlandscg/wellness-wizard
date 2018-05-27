@@ -11,7 +11,7 @@ export interface DailyValueDTO {
  * TypeORM Schema Config
  */
 @Entity('daily_value')
-export class DailyValueDbSchema implements DailyValueDTO {
+export class DailyValueSchema implements DailyValueDTO {
     @PrimaryGeneratedColumn()
     // tslint:disable-next-line:variable-name
     public id?: number;

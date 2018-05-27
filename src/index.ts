@@ -4,7 +4,6 @@ import TYPES from './types';
 import {getContainer} from './inversify.config';
 import {logger} from './util/Logger';
 import {RegistrableController} from './controller/RegisterableController';
-// import {AsyncContainerModule} from 'inversify';
 
 (async () => {
 const container = await getContainer();

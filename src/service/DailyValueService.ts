@@ -1,6 +1,6 @@
 import {injectable, inject} from 'inversify';
 import {DailyValue} from '../wrapper/DailyValue';
-import {DailyValueDao} from '../repository/DailyValueDao';
+import {DailyValueDao} from '../dao/DailyValueDao';
 import TYPES from '../types';
 import {DailyValueDTO} from '../model/DailyValueSchema';
 import * as _ from 'lodash';
