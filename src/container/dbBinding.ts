@@ -1,6 +1,6 @@
 import {AsyncContainerModule} from 'inversify';
 import {createConnection, getConnection, ConnectionOptions, Repository} from 'typeorm';
-import {DailyValueSchema} from '../model/DailyValueSchema';
+import {DailyValueSchema} from '../domain/DailyValue/DailyValueSchema';
 import TYPES from './types';
 import {logger} from '../util/Logger';
 

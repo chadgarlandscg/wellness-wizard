@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import * as test from 'tape';
-import {AddressController} from '../src/controller/AddressController';
+import {DailyValueController} from '../src/domain/DailyValue/DailyValueController';
 
 test('addressController', (t) => {
     t.plan(1);
 
-    const controller = new AddressController(null);
+    const controller = new DailyValueController();
 
     t.assert(controller != null);
 });

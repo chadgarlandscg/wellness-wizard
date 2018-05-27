@@ -1,7 +1,7 @@
-import {injectable, inject} from 'inversify';
-import {DailyValueDTO, DailyValueSchema} from '../model/DailyValueSchema';
 import {Repository} from 'typeorm';
-import TYPES from '../container/types';
+import {injectable, inject} from 'inversify';
+import TYPES from '../../container/types';
+import {DailyValueDTO, DailyValueSchema} from './DailyValueSchema';
 
 export interface DailyValueDao {
     findAll(): Promise<Array<DailyValueDTO>>;

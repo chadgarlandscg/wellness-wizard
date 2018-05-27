@@ -1,8 +1,8 @@
 import {injectable, inject} from 'inversify';
-import {DailyValue} from '../wrapper/DailyValue';
-import {DailyValueDao} from '../dao/DailyValueDao';
-import TYPES from '../container/types';
-import {DailyValueDTO} from '../model/DailyValueSchema';
+import TYPES from '../../container/types';
+import {DailyValue} from './DailyValue';
+import {DailyValueDao} from './DailyValueDao';
+import {DailyValueDTO} from './DailyValueSchema';
 
 export interface DailyValueService {
     getDailyValues(): Promise<Array<DailyValue>>;

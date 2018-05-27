@@ -1,8 +1,8 @@
 import * as express from 'express';
-import {inject} from 'inversify';
 import {controller, httpGet, queryParam, interfaces} from 'inversify-express-utils';
-import TYPES from '../container/types';
-import {DailyValueService} from '../service/DailyValueService';
+import {inject} from 'inversify';
+import TYPES from '../../container/types';
+import {DailyValueService} from './DailyValueService';
 // tslint:disable:no-unused-variable
 
 @controller('/dailyValue')
