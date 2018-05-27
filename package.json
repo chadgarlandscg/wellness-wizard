@@ -1,7 +1,7 @@
 {
-  "name": "mw-bp-node-typescript",
-  "version": "1.0.0",
-  "description": "Boilerplate project for a Node.js backend with Typescript support.",
+  "name": "wellness-wizard",
+  "version": "0.0.1",
+  "description": "A TS Inversify Node backend for nutrition and exercise.",
   "main": "src/index.ts",
   "scripts": {
     "start": "NODE_ENV=development node_modules/.bin/nodemon --exec 'yarn run lint && node_modules/.bin/ts-node src/index.ts'",
