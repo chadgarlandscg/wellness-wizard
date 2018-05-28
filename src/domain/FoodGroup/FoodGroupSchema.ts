@@ -1,8 +1,11 @@
-import {Entity, Column, PrimaryColumn} from 'typeorm';
+import {Entity, Column, PrimaryColumn, ManyToOne} from 'typeorm';
+import { FoodSchema } from '../Food/FoodSchema';
 
 export interface FoodGroupDto {
     fdgrp_cd: string;
     fdgrp_desc: string;
+
+    foods: FoodSchema[];
 }
 
 /**
@@ -14,4 +17,7 @@ export class FoodGroupSchema implements FoodGroupDto {
     public fdgrp_cd: string;
     @Column()
     public fdgrp_desc: string;
+
+    @ManyToOne(type => FoodSchema, food => food.foodGroup)
+    public foods: FoodSchema[];
 }

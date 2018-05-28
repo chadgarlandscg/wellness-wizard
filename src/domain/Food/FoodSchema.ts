@@ -1,4 +1,7 @@
-import {Entity, Column, PrimaryColumn} from 'typeorm';
+import {Entity, Column, PrimaryColumn, ManyToOne, OneToMany, JoinColumn} from 'typeorm';
+import { FoodGroupSchema } from '../FoodGroup/FoodGroupSchema';
+import { WeightSchema } from '../Weight/WeightSchema';
+import { FoodNutritionSchema } from '../FoodNutrition/FoodNutritionSchema';
 
 export interface FoodDto {
     ndb_no: string;
@@ -15,6 +18,10 @@ export interface FoodDto {
     pro_factor: number;
     fat_factor: number;
     cho_factor: number;
+
+    foodGroup: FoodGroupSchema;
+    weights: WeightSchema[];
+    foodNutritions: FoodNutritionSchema[];
 }
 
 /**
@@ -50,4 +57,12 @@ export class FoodSchema implements FoodDto {
     public fat_factor: number;
     @Column()
     public cho_factor: number;
+
+    @OneToMany(type => FoodGroupSchema, foodGroup => foodGroup.foods)
+    @JoinColumn()
+    public foodGroup: FoodGroupSchema;
+    @ManyToOne(type => WeightSchema, weight => weight.food)
+    public weights: WeightSchema[];
+    @ManyToOne(type => FoodNutritionSchema, foodNutrition => foodNutrition.food)
+    public foodNutritions: FoodNutritionSchema[];
 }

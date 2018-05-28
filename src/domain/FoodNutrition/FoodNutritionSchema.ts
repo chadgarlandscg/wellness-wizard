@@ -1,4 +1,6 @@
-import {Entity, Column, PrimaryColumn} from 'typeorm';
+import {Entity, Column, PrimaryColumn, OneToMany, JoinColumn} from 'typeorm';
+import { NutrientSchema } from '../Nutrient/NutrientSchema';
+import { FoodSchema } from '../Food/FoodSchema';
 
 export interface FoodNutritionDto {
     ndb_no: string;
@@ -19,6 +21,9 @@ export interface FoodNutritionDto {
     stat_cmt: string;
     addmod_date: string;
     cc: string;
+
+    nutrient: NutrientSchema;
+    food: FoodSchema;
 }
 
 /**
@@ -62,4 +67,11 @@ export class FoodNutritionSchema implements FoodNutritionDto {
     public addmod_date: string;
     @Column()
     public cc: string;
+
+    @OneToMany(type => NutrientSchema, nutrient => nutrient.foodNutritions)
+    @JoinColumn()
+    public nutrient: NutrientSchema;
+    @OneToMany(type => FoodSchema, food => food.foodNutritions)
+    @JoinColumn()
+    public food: FoodSchema;
 }

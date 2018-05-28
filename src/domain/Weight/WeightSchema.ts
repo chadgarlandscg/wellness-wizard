@@ -1,4 +1,5 @@
-import {Entity, Column, PrimaryColumn} from 'typeorm';
+import {Entity, Column, PrimaryColumn, OneToMany, JoinColumn} from 'typeorm';
+import { FoodSchema } from '../Food/FoodSchema';
 
 export interface WeightDto {
     weight_id: number;
@@ -9,6 +10,8 @@ export interface WeightDto {
     gm_wgt: number;
     num_data_pts: number;
     std_dev: number;
+
+    food: FoodSchema;
 }
 
 /**
@@ -18,9 +21,9 @@ export interface WeightDto {
 export class WeightSchema implements WeightDto {
     @PrimaryColumn()
     public weight_id: number;
-    @Column()
+    @PrimaryColumn()
     public ndb_no: string;
-    @Column()
+    @PrimaryColumn()
     public seq: string;
     @Column()
     public amount: number;
@@ -32,4 +35,8 @@ export class WeightSchema implements WeightDto {
     public num_data_pts: number;
     @Column()
     public std_dev: number;
+
+    @OneToMany(type => FoodSchema, food => food.weights)
+    @JoinColumn()
+    public food: FoodSchema;
 }

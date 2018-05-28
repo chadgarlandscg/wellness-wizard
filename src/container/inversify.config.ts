@@ -5,7 +5,7 @@ import {DailyValueDao, DailyValueDaoImpl} from '../domain/DailyValue/DailyValueD
 import {dbBinding} from './dbBinding';
 import TYPES from './types';
 
-import '../DailyValue/DailyValueController';
+import '../domain/DailyValue/DailyValueController';
 
 export const getContainer = async () => {
     const container = new Container();

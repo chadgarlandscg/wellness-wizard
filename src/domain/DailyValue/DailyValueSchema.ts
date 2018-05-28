@@ -1,10 +1,13 @@
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm';
+import { NutrientSchema } from '../Nutrient/NutrientSchema';
 
 export interface DailyValueDto {
     id?: number;
     units: string;
     value: number;
     nutr_no: string;
+
+    nutrient: NutrientSchema;
 }
 
 /**
@@ -21,4 +24,8 @@ export class DailyValueSchema implements DailyValueDto {
     public value: number;
     @Column()
     public nutr_no: string;
+
+    @OneToOne(type => NutrientSchema, nutrient => nutrient.dailyValue)
+    @JoinColumn({name: 'nutr_no'})
+    public nutrient: NutrientSchema;
 }
