@@ -1,3 +1,5 @@
+import { DailyValueDto } from './DailyValueSchema';
+
 export class DailyValue {
     constructor(
         private units: string,
@@ -16,5 +18,18 @@ export class DailyValue {
     }
     get getId(): number {
         return this.id;
+    }
+}
+
+export class DailyValueMapper {
+    public static toDailyValue(dailyValueDto: DailyValueDto): DailyValue {
+        return new DailyValue(
+            dailyValueDto.units,
+            dailyValueDto.value,
+            dailyValueDto.nutr_no,
+            dailyValueDto.id);
+    }
+    public static toDailyValues(dailyValueDtos: DailyValueDto[]): DailyValue[] {
+        return dailyValueDtos.map(this.toDailyValue);
     }
 }

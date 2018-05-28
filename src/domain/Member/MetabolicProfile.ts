@@ -67,7 +67,7 @@ const calculateHydrationTarget = (basalMetabolicRate, weight, metric) => {
   return Math.round(average);
 };
 const calculateWeightData = (weight, height, metric, gender) => {
-  const weightInKg = weight / (metric ? 1 : Constants.LBS_PER_KG);
+  // const weightInKg = weight / (metric ? 1 : Constants.LBS_PER_KG);
   const fiveFeetInInches = 60;
   const whoMinBmi = 18;
   const whoMaxBmi = 25;
@@ -120,15 +120,15 @@ const calculateMyDailyValues = (dailyValues, basalMetabolicRate) => dailyValues.
   return dv;
 });
 
-const commonTagnames = {
-  PROCNT: 'PROTEIN',
-  FAT: 'FAT',
-  CARBS: 'CHOCDF',
-  CALORIES: 'ENERC_KCAL',
-  ALCOHOL: 'ALC',
-  WATER: 'WATER',
-  CAFFEINE: 'CAFFN',
-};
+// const commonTagnames = {
+//   PROCNT: 'PROTEIN',
+//   FAT: 'FAT',
+//   CARBS: 'CHOCDF',
+//   CALORIES: 'ENERC_KCAL',
+//   ALCOHOL: 'ALC',
+//   WATER: 'WATER',
+//   CAFFEINE: 'CAFFN',
+// };
 
 // 203     | g     | PROCNT     | Protein                            | 2       |      600
 // 204     | g     | FAT        | Total lipid (fat)                  | 2       |      800
@@ -153,51 +153,3 @@ const calculateRecommendedWeightChange = bmi => {
     return 0;
   }
 };
-
-const initializeMember = member => {
-  member.calories = 0;
-  member.hydration = 0;
-  member.birthDate = (new Date(member.birthDate)).toISOString();
-  member.weightData = this.weightData(member);
-  member.recommendedWeightChange = this.recommendedWeightChange(member.weightData.bmi);
-  member.basalMetabolicRate = this.basalMetabolicRate(member);
-  member.zeroedMetabolicRate = this.zeroedMetabolicRate(member);
-  member.targetMetabolicRate = this.targetMetabolicRate(member);
-  member.burnTarget = member.zeroedMetabolicRate - member.basalMetabolicRate;
-  member.hydrationTarget = this.hydrationTarget(member);
-  return member;
-};
-
-// class Member {
-//   constructor(options){
-//     this.calories = options.calories || 0
-//     this.hydration = options.hydration || 0
-//     this.birthDate = (new Date(options.birthDate)).toISOString()
-//     this.weightData = _this.weightData(this)
-//     this.recommendedWeightChange = _this.recommendedWeightChange(this.weightData.bmi)
-//     this.basalMetabolicRate = _this.basalMetabolicRate(this)
-//     this.zeroedMetabolicRate = _this.zeroedMetabolicRate(this)
-//     this.targetMetabolicRate = _this.targetMetabolicRate(this)
-//     this.burnTarget = this.zeroedMetabolicRate - this.basalMetabolicRate
-//     this.hydrationTarget = _this.hydrationTarget(this)
-//   }
-// }
-//
-// const Member = Member
-
-// const initializeMember = member => {
-//   member.caloriesConsumed = 0
-//   member.caloriesBurned = 0
-//   member.hydration = 0
-//   member.dehydration = 0
-//   member.birthDate = (new Date(member.birthDate)).toISOString()
-//   member.weightData = this.weightData(member)
-//   member.recommendedWeightChange = this.recommendedWeightChange(member.weightData.bmi)
-//   member.basalMetabolicRate = this.basalMetabolicRate(member)
-//   member.zeroedMetabolicRate = this.zeroedMetabolicRate(member)
-//   member.targetMetabolicRate = this.targetMetabolicRate(member)
-//   member.exerciseAdjustedCaloricAllotment = member.targetMetabolicRate
-//   member.burnTarget = member.zeroedMetabolicRate - member.basalMetabolicRate
-//   member.hydrationTarget = this.hydrationTarget(member)
-//   return member
-// }

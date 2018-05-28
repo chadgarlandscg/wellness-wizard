@@ -4,7 +4,7 @@ import TYPES from '../../container/types';
 import {FoodDto, FoodSchema} from './FoodSchema';
 
 export interface FoodDao {
-    findAll(): Promise<Array<FoodDto>>;
+    findAll(): Promise<FoodDto[]>;
     find(id: string): Promise<FoodDto>;
     search(query: string): Promise<FoodDto[]>;
 }
@@ -14,12 +14,12 @@ export class FoodDaoImpl implements FoodDao {
     @inject(TYPES.FoodRepository)
     private readonly foodRepository: Repository<FoodSchema>;
 
-    public async findAll(): Promise<Array<FoodDto>> {
+    public async findAll(): Promise<FoodDto[]> {
         return await this.foodRepository.find();
     }
     public async find(id: string): Promise<FoodDto> {
         return await this.foodRepository.findOne(id, {
-            relations: ['foodNutritions', 'foodGroup']
+            relations: ['foodNutritions', 'foodGroup', 'weights']
         });
         // const users = await connection.getRepository(User).find({ relations: ["profile", "photos", "videos"] });
     }

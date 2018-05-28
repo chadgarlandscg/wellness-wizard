@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import {getContainer} from './container/inversify.config';
@@ -21,6 +22,7 @@ import {InversifyExpressServer} from 'inversify-express-utils';
     });
 
     let app = server.build();
+
     // setup express middleware logging and begin listening
     app.listen(3000, function () {
         logger.info('Example app listening on port 3000!');

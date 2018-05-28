@@ -1,6 +1,7 @@
 import { FoodGroupSchema } from '../FoodGroup/FoodGroupSchema';
 import { WeightSchema } from '../Weight/WeightSchema';
 import { FoodNutritionSchema } from '../FoodNutrition/FoodNutritionSchema';
+import { FoodDto } from './FoodSchema';
 
 export class Food {
     constructor(
@@ -72,5 +73,34 @@ export class Food {
     }
     public get getFoodNutritions(){
         return this.foodNutritions;
+    }
+}
+
+export class FoodMapper {
+    public static toFood(foodDto: FoodDto): Food {
+        return new Food(
+            foodDto.ndb_no,
+            foodDto.fdgrp_cd,
+            foodDto.long_desc,
+            foodDto.shrt_desc,
+            foodDto.comname,
+            foodDto.manufacname,
+            foodDto.survey,
+            foodDto.ref_desc,
+            foodDto.refuse,
+            foodDto.sciname,
+            foodDto.n_factor,
+            foodDto.pro_factor,
+            foodDto.fat_factor,
+            foodDto.cho_factor,
+
+            foodDto.foodGroup,
+            foodDto.weights,
+            foodDto.foodNutritions,
+        );
+    }
+
+    public static toFoods(foodDtos: FoodDto[]): Food[] {
+        return foodDtos.map(this.toFood);
     }
 }

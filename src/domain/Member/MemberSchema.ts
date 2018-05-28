@@ -1,5 +1,6 @@
-import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn} from 'typeorm';
 import { HIDE } from '../../util/DecoratorHelper';
+import { MetabolicEventSchema, MetabolicEventDto } from '../MetabolicEvent/MetabolicEventSchema';
 
 export interface MemberDto {
     member_id: number;
@@ -15,6 +16,8 @@ export interface MemberDto {
     activity_level: string;
     created_timestamp: Date;
     updated_timestamp: Date;
+
+    metabolicEvents: MetabolicEventDto[];
 }
 
 /**
@@ -48,4 +51,8 @@ export class MemberSchema implements MemberDto {
     public created_timestamp: Date;
     @UpdateDateColumn(HIDE)
     public updated_timestamp: Date;
+
+    @OneToMany(type => MetabolicEventSchema, metabolicEvent => metabolicEvent.member)
+    @JoinColumn({name: 'member_id'})
+    public metabolicEvents: MetabolicEventSchema[];
 }
