@@ -1,4 +1,8 @@
 const TYPES = {
+    MemberService: Symbol('MemberService'),
+    MemberDao: Symbol('MemberDao'),
+    MemberRepository: Symbol('MemberRepository'),
+
     DailyValueService: Symbol('DailyValueService'),
     DailyValueDao: Symbol('DailyValueDao'),
     DailyValueRepository: Symbol('DailyValueRepository'),

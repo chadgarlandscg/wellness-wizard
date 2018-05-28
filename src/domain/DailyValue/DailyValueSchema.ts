@@ -16,7 +16,6 @@ export interface DailyValueDto {
 @Entity('daily_value')
 export class DailyValueSchema implements DailyValueDto {
     @PrimaryGeneratedColumn()
-    // tslint:disable-next-line:variable-name
     public id?: number;
     @Column()
     public units: string;
