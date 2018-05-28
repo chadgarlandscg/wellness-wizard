@@ -4,7 +4,7 @@ import TYPES from '../../container/types';
 import {DailyValueDto, DailyValueSchema} from './DailyValueSchema';
 
 export interface DailyValueDao {
-    findAll(): Promise<Array<DailyValueDto>>;
+    findAll(): Promise<DailyValueDto[]>;
     find(id: string): Promise<DailyValueDto>;
 }
 
@@ -13,7 +13,7 @@ export class DailyValueDaoImpl implements DailyValueDao {
     @inject(TYPES.DailyValueRepository)
     private readonly dailyValueRepository: Repository<DailyValueSchema>;
 
-    public async findAll(): Promise<Array<DailyValueDto>> {
+    public async findAll(): Promise<DailyValueDto[]> {
         return await this.dailyValueRepository.find();
     }
     public async find(id: string): Promise<DailyValueDto> {

@@ -1,6 +1,5 @@
-import { MemberSchema, MemberDto } from "../Member/MemberSchema";
-import { Member, MemberMapper } from "../Member/Member";
-import { MetabolicEventDto } from "./MetabolicEventSchema";
+import { Member, MemberMapper } from '../Member/Member';
+import { MetabolicEventDto } from './MetabolicEventSchema';
 
 export class MetabolicEvent {
     constructor(
@@ -28,6 +27,10 @@ export class MetabolicEventMapper {
 
             member: metabolicEvent.member && MemberMapper.toMemberDto(metabolicEvent.member),
         };
+    }
+
+    public static toMetabolicEventDtos(metabolicEvents: MetabolicEvent[]): MetabolicEventDto[] {
+        return metabolicEvents.map(this.toMetabolicEventDto);
     }
 
     public static toMetabolicEvent(metabolicEventDto: MetabolicEventDto): MetabolicEvent {

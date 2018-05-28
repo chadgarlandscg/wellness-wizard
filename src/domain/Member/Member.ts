@@ -1,6 +1,6 @@
 import MetabolicProfile from './MetabolicProfile';
-import { MetabolicEventSchema } from '../MetabolicEvent/MetabolicEventSchema';
 import { MemberDto } from './MemberSchema';
+import { MetabolicEventMapper, MetabolicEvent } from '../MetabolicEvent/MetabolicEvent';
 
 export class Member {
     public metabolicProfile: MetabolicProfile;
@@ -19,7 +19,7 @@ export class Member {
         public createdTimestamp: Date,
         public updatedTimestamp: Date,
 
-        public metabolicEvents: MetabolicEventSchema[],
+        public metabolicEvents: MetabolicEvent[],
     ) {
     }
 }
@@ -41,7 +41,7 @@ export class MemberMapper {
             created_timestamp: member.createdTimestamp,
             updated_timestamp: member.updatedTimestamp,
 
-            metabolicEvents: member.metabolicEvents,
+            metabolicEvents: member.metabolicEvents && MetabolicEventMapper.toMetabolicEventDtos(member.metabolicEvents),
         };
     }
 
@@ -61,7 +61,7 @@ export class MemberMapper {
             memberDto.created_timestamp,
             memberDto.updated_timestamp,
 
-            memberDto.metabolicEvents,
+            memberDto.metabolicEvents && MetabolicEventMapper.toMetabolicEvents(memberDto.metabolicEvents),
         );
     }
 

@@ -1,6 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn} from 'typeorm';
 import { HIDE } from '../../util/DecoratorHelper';
-import { MetabolicEventSchema } from '../MetabolicEvent/MetabolicEventSchema';
+import { MetabolicEventSchema, MetabolicEventDto } from '../MetabolicEvent/MetabolicEventSchema';
 
 export interface MemberDto {
     member_id: number;
@@ -17,7 +17,7 @@ export interface MemberDto {
     created_timestamp: Date;
     updated_timestamp: Date;
 
-    metabolicEvents: MetabolicEventSchema[];
+    metabolicEvents: MetabolicEventDto[];
 }
 
 /**

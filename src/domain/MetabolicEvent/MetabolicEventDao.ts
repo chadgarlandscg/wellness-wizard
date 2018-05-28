@@ -5,7 +5,7 @@ import {MetabolicEventDto, MetabolicEventSchema} from './MetabolicEventSchema';
 
 export interface MetabolicEventDao {
     create(metabolicEvent: MetabolicEventDto): Promise<MetabolicEventDto>;
-    findAll(): Promise<Array<MetabolicEventDto>>;
+    findAll(): Promise<MetabolicEventDto[]>;
     find(id: string): Promise<MetabolicEventDto>;
     search(query: string): Promise<MetabolicEventDto[]>;
 }
@@ -18,7 +18,7 @@ export class MetabolicEventDaoImpl implements MetabolicEventDao {
     public async create(metabolicEvent: MetabolicEventDto): Promise<MetabolicEventDto> {
         return await this.metabolicEventRepository.save(metabolicEvent);
     }
-    public async findAll(): Promise<Array<MetabolicEventDto>> {
+    public async findAll(): Promise<MetabolicEventDto[]> {
         return await this.metabolicEventRepository.find();
     }
     public async find(id: string): Promise<MetabolicEventDto> {
