@@ -9,9 +9,11 @@ import { FoodNutritionSchema } from '../domain/FoodNutrition/FoodNutritionSchema
 import { NutrientSchema } from '../domain/Nutrient/NutrientSchema';
 import { WeightSchema } from '../domain/Weight/WeightSchema';
 import { MemberSchema } from '../domain/Member/MemberSchema';
+import { MetabolicEventSchema } from '../domain/MetabolicEvent/MetabolicEventSchema';
 
 const entities = [
     MemberSchema,
+    MetabolicEventSchema,
     DailyValueSchema,
     FoodSchema,
     FoodGroupSchema,
@@ -20,6 +22,7 @@ const entities = [
     WeightSchema,
 ];
 const getMemberRepository = () => getConnection().getRepository(MemberSchema);
+const getMetabolicEventRepository = () => getConnection().getRepository(MetabolicEventSchema);
 const getDailyValueRepository = () => getConnection().getRepository(DailyValueSchema);
 const getFoodRepository = () => getConnection().getRepository(FoodSchema);
 const getFoodGroupRepository = () => getConnection().getRepository(FoodGroupSchema);
@@ -30,6 +33,7 @@ const getWeightRepository = () => getConnection().getRepository(WeightSchema);
 export const dbBinding = new AsyncContainerModule(async (bind) => {
     await getDbConnection();
     bind<Repository<MemberSchema>>(TYPES.MemberRepository).toDynamicValue(getMemberRepository).inRequestScope();
+    bind<Repository<MetabolicEventSchema>>(TYPES.MetabolicEventRepository).toDynamicValue(getMetabolicEventRepository).inRequestScope();
     bind<Repository<DailyValueSchema>>(TYPES.DailyValueRepository).toDynamicValue(getDailyValueRepository).inRequestScope();
     bind<Repository<FoodSchema>>(TYPES.FoodRepository).toDynamicValue(getFoodRepository).inRequestScope();
     bind<Repository<FoodGroupSchema>>(TYPES.FoodGroupRepository).toDynamicValue(getFoodGroupRepository).inRequestScope();

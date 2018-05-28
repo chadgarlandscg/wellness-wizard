@@ -22,7 +22,7 @@ export class MemberDaoImpl implements MemberDao {
         return await this.memberRepository.find();
     }
     public async find(id: string): Promise<MemberDto> {
-        return await this.memberRepository.findOne(id);
+        return await this.memberRepository.findOne(id, {relations: ['metabolicEvents']});
     }
     public async search(query: string): Promise<MemberDto[]> {
         return await this.memberRepository.find({

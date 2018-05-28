@@ -63,6 +63,8 @@ export class MemberServiceImpl implements MemberService {
             activity_level: member.activityLevel,
             created_timestamp: member.createdTimestamp,
             updated_timestamp: member.updatedTimestamp,
+
+            metabolicEvents: member.metabolicEvents,
         };
     }
 
@@ -81,6 +83,8 @@ export class MemberServiceImpl implements MemberService {
             memberDto.activity_level,
             memberDto.created_timestamp,
             memberDto.updated_timestamp,
+
+            memberDto.metabolicEvents,
         );
     }
 

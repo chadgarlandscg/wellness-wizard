@@ -3,6 +3,10 @@ const TYPES = {
     MemberDao: Symbol('MemberDao'),
     MemberRepository: Symbol('MemberRepository'),
 
+    MetabolicEventService: Symbol('MetabolicEventService'),
+    MetabolicEventDao: Symbol('MetabolicEventDao'),
+    MetabolicEventRepository: Symbol('MetabolicEventRepository'),
+
     DailyValueService: Symbol('DailyValueService'),
     DailyValueDao: Symbol('DailyValueDao'),
     DailyValueRepository: Symbol('DailyValueRepository'),

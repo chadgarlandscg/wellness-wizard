@@ -19,7 +19,7 @@ export class FoodDaoImpl implements FoodDao {
     }
     public async find(id: string): Promise<FoodDto> {
         return await this.foodRepository.findOne(id, {
-            relations: ['foodNutritions', 'foodGroup']
+            relations: ['foodNutritions', 'foodGroup', 'weights']
         });
         // const users = await connection.getRepository(User).find({ relations: ["profile", "photos", "videos"] });
     }
