@@ -1,17 +1,41 @@
 import {AsyncContainerModule} from 'inversify';
 import {createConnection, getConnection, ConnectionOptions, Repository} from 'typeorm';
-import {DailyValueSchema} from '../model/DailyValueSchema';
+import {DailyValueSchema} from '../domain/DailyValue/DailyValueSchema';
 import TYPES from './types';
 import {logger} from '../util/Logger';
+import { FoodSchema } from '../domain/Food/FoodSchema';
+import { FoodGroupSchema } from '../domain/FoodGroup/FoodGroupSchema';
+import { FoodNutritionSchema } from '../domain/FoodNutrition/FoodNutritionSchema';
+import { NutrientSchema } from '../domain/Nutrient/NutrientSchema';
+import { WeightSchema } from '../domain/Weight/WeightSchema';
+import { MemberSchema } from '../domain/Member/MemberSchema';
 
 const entities = [
+    MemberSchema,
     DailyValueSchema,
+    FoodSchema,
+    FoodGroupSchema,
+    FoodNutritionSchema,
+    NutrientSchema,
+    WeightSchema,
 ];
+const getMemberRepository = () => getConnection().getRepository(MemberSchema);
 const getDailyValueRepository = () => getConnection().getRepository(DailyValueSchema);
+const getFoodRepository = () => getConnection().getRepository(FoodSchema);
+const getFoodGroupRepository = () => getConnection().getRepository(FoodGroupSchema);
+const getFoodNutritionRepository = () => getConnection().getRepository(FoodNutritionSchema);
+const getNutrientRepository = () => getConnection().getRepository(NutrientSchema);
+const getWeightRepository = () => getConnection().getRepository(WeightSchema);
 
 export const dbBinding = new AsyncContainerModule(async (bind) => {
     await getDbConnection();
+    bind<Repository<MemberSchema>>(TYPES.MemberRepository).toDynamicValue(getMemberRepository).inRequestScope();
     bind<Repository<DailyValueSchema>>(TYPES.DailyValueRepository).toDynamicValue(getDailyValueRepository).inRequestScope();
+    bind<Repository<FoodSchema>>(TYPES.FoodRepository).toDynamicValue(getFoodRepository).inRequestScope();
+    bind<Repository<FoodGroupSchema>>(TYPES.FoodGroupRepository).toDynamicValue(getFoodGroupRepository).inRequestScope();
+    bind<Repository<FoodNutritionSchema>>(TYPES.FoodNutritionRepository).toDynamicValue(getFoodNutritionRepository).inRequestScope();
+    bind<Repository<NutrientSchema>>(TYPES.NutrientRepository).toDynamicValue(getNutrientRepository).inRequestScope();
+    bind<Repository<WeightSchema>>(TYPES.WeightRepository).toDynamicValue(getWeightRepository).inRequestScope();
 });
 
 const getDbConnection = async () => {

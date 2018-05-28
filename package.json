@@ -39,7 +39,7 @@
     "pg-promise": "^5.9.7",
     "reflect-metadata": "^0.1.12",
     "serve-favicon": "~2.4.2",
-    "typeorm": "^0.2.5",
+    "typeorm": "^0.2.6",
     "winston": "^2.2.0"
   },
   "devDependencies": {

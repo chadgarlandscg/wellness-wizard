@@ -1,8 +1,8 @@
 import {injectable, inject} from 'inversify';
-import {DailyValue} from '../wrapper/DailyValue';
-import {DailyValueDao} from '../dao/DailyValueDao';
-import TYPES from '../container/types';
-import {DailyValueDTO} from '../model/DailyValueSchema';
+import TYPES from '../../container/types';
+import {DailyValue} from './DailyValue';
+import {DailyValueDao} from './DailyValueDao';
+import {DailyValueDto} from './DailyValueSchema';
 
 export interface DailyValueService {
     getDailyValues(): Promise<Array<DailyValue>>;
@@ -17,7 +17,7 @@ export class DailyValueServiceImpl implements DailyValueService {
     public async getDailyValues(): Promise<Array<DailyValue>> {
         return await this.dailyValueDao.findAll().then(
             dtos => dtos.map(
-                (dto: DailyValueDTO) => this.toDailyValue(dto)
+                (dto: DailyValueDto) => this.toDailyValue(dto)
             )
         );
     }
@@ -28,7 +28,7 @@ export class DailyValueServiceImpl implements DailyValueService {
         );
     }
 
-    // private toDailyValueDTO(dailyValue: DailyValue): DailyValueDTO {
+    // private toDailyValueDto(dailyValue: DailyValue): DailyValueDto {
     //     return {
     //         units: dailyValue.getUnits,
     //         value: dailyValue.getValue,
@@ -37,11 +37,11 @@ export class DailyValueServiceImpl implements DailyValueService {
     //     };
     // }
 
-    private toDailyValue(dailyValueDTO: DailyValueDTO): DailyValue {
+    private toDailyValue(dailyValueDto: DailyValueDto): DailyValue {
         return new DailyValue(
-            dailyValueDTO.units,
-            dailyValueDTO.value,
-            dailyValueDTO.nutr_no,
-            dailyValueDTO.id);
+            dailyValueDto.units,
+            dailyValueDto.value,
+            dailyValueDto.nutr_no,
+            dailyValueDto.id);
     }
 }
