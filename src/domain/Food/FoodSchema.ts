@@ -2,6 +2,7 @@ import {Entity, Column, PrimaryColumn, ManyToOne, OneToMany, JoinColumn} from 't
 import { FoodGroupSchema } from '../FoodGroup/FoodGroupSchema';
 import { WeightSchema } from '../Weight/WeightSchema';
 import { FoodNutritionSchema } from '../FoodNutrition/FoodNutritionSchema';
+import { HIDE } from '../../util/DecoratorHelper';
 
 export interface FoodDto {
     ndb_no: string;
@@ -41,28 +42,30 @@ export class FoodSchema implements FoodDto {
     public comname: string;
     @Column()
     public manufacname: string;
-    @Column()
+    @Column(HIDE)
     public survey: string;
-    @Column()
+    @Column(HIDE)
     public ref_desc: string;
-    @Column()
+    @Column(HIDE)
     public refuse: number;
-    @Column()
+    @Column(HIDE)
     public sciname: string;
-    @Column()
+    @Column(HIDE)
     public n_factor: number;
-    @Column()
+    @Column(HIDE)
     public pro_factor: number;
-    @Column()
+    @Column(HIDE)
     public fat_factor: number;
-    @Column()
+    @Column(HIDE)
     public cho_factor: number;
 
-    @OneToMany(type => FoodGroupSchema, foodGroup => foodGroup.foods)
-    @JoinColumn()
+    @ManyToOne(type => FoodGroupSchema, foodGroup => foodGroup.foods)
+    @JoinColumn({name: 'fdgrp_cd'})
     public foodGroup: FoodGroupSchema;
-    @ManyToOne(type => WeightSchema, weight => weight.food)
+    @OneToMany(type => WeightSchema, weight => weight.food)
+    @JoinColumn({name: 'ndb_no', referencedColumnName: 'ndb_no'})
     public weights: WeightSchema[];
-    @ManyToOne(type => FoodNutritionSchema, foodNutrition => foodNutrition.food)
+    @OneToMany(type => FoodNutritionSchema, foodNutrition => foodNutrition.food)
+    @JoinColumn({name: 'ndb_no'})
     public foodNutritions: FoodNutritionSchema[];
 }

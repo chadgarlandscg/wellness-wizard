@@ -1,6 +1,7 @@
-import {Entity, Column, PrimaryColumn, OneToMany, JoinColumn} from 'typeorm';
+import {Entity, Column, PrimaryColumn, JoinColumn, ManyToOne} from 'typeorm';
 import { NutrientSchema } from '../Nutrient/NutrientSchema';
 import { FoodSchema } from '../Food/FoodSchema';
+import { HIDE } from '../../util/DecoratorHelper';
 
 export interface FoodNutritionDto {
     ndb_no: string;
@@ -37,41 +38,41 @@ export class FoodNutritionSchema implements FoodNutritionDto {
     public nutr_no: string;
     @Column()
     public nutr_val: number;
-    @Column()
+    @Column(HIDE)
     public num_data_pts: number;
-    @Column()
+    @Column(HIDE)
     public std_error: number;
-    @Column()
+    @Column(HIDE)
     public src_cd: string;
-    @Column()
+    @Column(HIDE)
     public deriv_cd: string;
-    @Column()
+    @Column(HIDE)
     public ref_ndb_no: string;
-    @Column()
+    @Column(HIDE)
     public add_nutr_mark: string;
-    @Column()
+    @Column(HIDE)
     public num_studies: number;
-    @Column()
+    @Column(HIDE)
     public min: number;
-    @Column()
+    @Column(HIDE)
     public max: number;
-    @Column()
+    @Column(HIDE)
     public df: number;
-    @Column()
+    @Column(HIDE)
     public low_eb: number;
-    @Column()
+    @Column(HIDE)
     public up_eb: number;
-    @Column()
+    @Column(HIDE)
     public stat_cmt: string;
-    @Column()
+    @Column(HIDE)
     public addmod_date: string;
-    @Column()
+    @Column(HIDE)
     public cc: string;
 
-    @OneToMany(type => NutrientSchema, nutrient => nutrient.foodNutritions)
-    @JoinColumn()
+    @ManyToOne(type => NutrientSchema, nutrient => nutrient.foodNutritions)
+    @JoinColumn({name: 'nutr_no'})
     public nutrient: NutrientSchema;
-    @OneToMany(type => FoodSchema, food => food.foodNutritions)
-    @JoinColumn()
+    @ManyToOne(type => FoodSchema, food => food.foodNutritions)
+    @JoinColumn({name: 'ndb_no'})
     public food: FoodSchema;
 }

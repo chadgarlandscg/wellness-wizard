@@ -1,6 +1,7 @@
-import {Entity, Column, PrimaryColumn, OneToOne, ManyToOne} from 'typeorm';
+import {Entity, Column, PrimaryColumn, OneToOne, OneToMany} from 'typeorm';
 import { DailyValueSchema } from '../DailyValue/DailyValueSchema';
 import { FoodNutritionSchema } from '../FoodNutrition/FoodNutritionSchema';
+import { HIDE } from '../../util/DecoratorHelper';
 
 export interface NutrientDto {
     nutr_no: string;
@@ -27,13 +28,13 @@ export class NutrientSchema implements NutrientDto {
     public tagname: string;
     @Column()
     public nutrDesc: string;
-    @Column()
+    @Column(HIDE)
     public num_dec: string;
-    @Column()
+    @Column(HIDE)
     public sr_order: number;
 
     @OneToOne(type => DailyValueSchema, dailyValue => dailyValue.nutrient)
     public dailyValue: DailyValueSchema;
-    @ManyToOne(type => FoodNutritionSchema, foodNutrition => foodNutrition.nutrient)
+    @OneToMany(type => FoodNutritionSchema, foodNutrition => foodNutrition.nutrient)
     public foodNutritions: FoodNutritionSchema[];
 }

@@ -1,5 +1,6 @@
-import {Entity, Column, PrimaryColumn, OneToMany, JoinColumn} from 'typeorm';
+import {Entity, Column, PrimaryColumn, JoinColumn, ManyToOne} from 'typeorm';
 import { FoodSchema } from '../Food/FoodSchema';
+import { HIDE } from '../../util/DecoratorHelper';
 
 export interface WeightDto {
     weight_id: number;
@@ -31,12 +32,12 @@ export class WeightSchema implements WeightDto {
     public msre_desc: string;
     @Column()
     public gm_wgt: number;
-    @Column()
+    @Column(HIDE)
     public num_data_pts: number;
-    @Column()
+    @Column(HIDE)
     public std_dev: number;
 
-    @OneToMany(type => FoodSchema, food => food.weights)
-    @JoinColumn()
+    @ManyToOne(type => FoodSchema, food => food.weights)
+    @JoinColumn({name: 'ndb_no', referencedColumnName: 'ndb_no'})
     public food: FoodSchema;
 }
