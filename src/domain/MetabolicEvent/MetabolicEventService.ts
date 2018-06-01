@@ -2,6 +2,8 @@ import {injectable, inject} from 'inversify';
 import TYPES from '../../container/types';
 import {MetabolicEvent, MetabolicEventMapper} from './MetabolicEvent';
 import {MetabolicEventDao} from './MetabolicEventDao';
+import { UsdaSelectionService } from '../UsdaSelection/UsdaSelectionService';
+import { UsdaSelectionEvent } from '../UsdaSelectionEvent/UsdaSelectionEvent';
 
 export interface MetabolicEventService {
     createMetabolicEvent(metabolicEvent: MetabolicEvent): Promise<MetabolicEvent>;
@@ -14,8 +16,13 @@ export interface MetabolicEventService {
 export class MetabolicEventServiceImpl implements MetabolicEventService {
     @inject(TYPES.MetabolicEventDao)
     private metabolicEventDao: MetabolicEventDao;
+    @inject(TYPES.UsdaSelectionService)
+    private usdaSelectionService: UsdaSelectionService;
 
     public async createMetabolicEvent(metabolicEvent: MetabolicEvent): Promise<MetabolicEvent> {
+        const usdaSelection = await this.usdaSelectionService.createUsdaSelection(metabolicEvent.usdaSelections[0]);
+        const usdaSelectionEvent = new UsdaSelectionEvent(null, usdaSelection.usdaSelectionId);
+        metabolicEvent.usdaSelectionEvents = [usdaSelectionEvent];
         const newMetabolicEventDto = await this.metabolicEventDao.create(MetabolicEventMapper.toMetabolicEventDto(metabolicEvent));
         const newMetabolicEvent = MetabolicEventMapper.toMetabolicEvent(newMetabolicEventDto);
         return newMetabolicEvent;

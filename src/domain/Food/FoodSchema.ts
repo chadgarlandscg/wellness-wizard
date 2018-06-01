@@ -1,8 +1,9 @@
 import {Entity, Column, PrimaryColumn, ManyToOne, OneToMany, JoinColumn} from 'typeorm';
-import { FoodGroupSchema } from '../FoodGroup/FoodGroupSchema';
-import { WeightSchema } from '../Weight/WeightSchema';
-import { FoodNutritionSchema } from '../FoodNutrition/FoodNutritionSchema';
+import { FoodGroupSchema, FoodGroupDto } from '../FoodGroup/FoodGroupSchema';
+import { WeightSchema, WeightDto } from '../Weight/WeightSchema';
+import { FoodNutritionSchema, FoodNutritionDto } from '../FoodNutrition/FoodNutritionSchema';
 import { HIDE } from '../../util/DecoratorHelper';
+import { UsdaSelectionSchema, UsdaSelectionDto } from '../UsdaSelection/UsdaSelectionSchema';
 
 export interface FoodDto {
     ndb_no: string;
@@ -20,9 +21,10 @@ export interface FoodDto {
     fat_factor: number;
     cho_factor: number;
 
-    foodGroup: FoodGroupSchema;
-    weights: WeightSchema[];
-    foodNutritions: FoodNutritionSchema[];
+    foodGroup: FoodGroupDto;
+    weights: WeightDto[];
+    foodNutritions: FoodNutritionDto[];
+    usdaSelections: UsdaSelectionDto[];
 }
 
 /**
@@ -68,4 +70,7 @@ export class FoodSchema implements FoodDto {
     @OneToMany(type => FoodNutritionSchema, foodNutrition => foodNutrition.food)
     @JoinColumn({name: 'ndb_no'})
     public foodNutritions: FoodNutritionSchema[];
+    @OneToMany(type => UsdaSelectionSchema, usdaSelection => usdaSelection.food)
+    @JoinColumn({name: 'ndb_no'})
+    public usdaSelections: UsdaSelectionSchema[];
 }

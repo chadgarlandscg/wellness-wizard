@@ -1,6 +1,7 @@
-import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne} from 'typeorm';
-import { HIDE } from '../../util/DecoratorHelper';
+import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne, OneToMany} from 'typeorm';
+import { HIDE, CASCADE } from '../../util/DecoratorHelper';
 import { MemberSchema, MemberDto } from '../Member/MemberSchema';
+import { UsdaSelectionEventSchema, UsdaSelectionEventDto } from '../UsdaSelectionEvent/UsdaSelectionEventSchema';
 
 export interface MetabolicEventDto {
     member_metabolic_event_id: number;
@@ -13,6 +14,7 @@ export interface MetabolicEventDto {
     updated_timestamp?: Date;
 
     member: MemberDto;
+    usdaSelectionEvents?: UsdaSelectionEventDto[];
 }
 
 /**
@@ -40,5 +42,8 @@ export class MetabolicEventSchema implements MetabolicEventDto {
     @ManyToOne(type => MemberSchema, member => member.metabolicEvents)
     @JoinColumn({name: 'member_id'})
     public member: MemberSchema;
+    @OneToMany(type => UsdaSelectionEventSchema, usdaSelectionEvent => usdaSelectionEvent.metabolicEvent, CASCADE)
+    @JoinColumn({name: 'member_metabolic_event_id'})
+    public usdaSelectionEvents: UsdaSelectionEventSchema[];
 
 }

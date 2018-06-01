@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn} from 'typeorm';
-import { NutrientSchema } from '../Nutrient/NutrientSchema';
+import { NutrientSchema, NutrientDto } from '../Nutrient/NutrientSchema';
 
 export interface DailyValueDto {
     id?: number;
@@ -7,7 +7,7 @@ export interface DailyValueDto {
     value: number;
     nutr_no: string;
 
-    nutrient: NutrientSchema;
+    nutrient: NutrientDto;
 }
 
 /**

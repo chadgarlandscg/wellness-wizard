@@ -1,6 +1,6 @@
 import {Entity, Column, PrimaryColumn, JoinColumn, ManyToOne} from 'typeorm';
-import { NutrientSchema } from '../Nutrient/NutrientSchema';
-import { FoodSchema } from '../Food/FoodSchema';
+import { NutrientSchema, NutrientDto } from '../Nutrient/NutrientSchema';
+import { FoodSchema, FoodDto } from '../Food/FoodSchema';
 import { HIDE } from '../../util/DecoratorHelper';
 
 export interface FoodNutritionDto {
@@ -23,8 +23,8 @@ export interface FoodNutritionDto {
     addmod_date: string;
     cc: string;
 
-    nutrient: NutrientSchema;
-    food: FoodSchema;
+    nutrient: NutrientDto;
+    food: FoodDto;
 }
 
 /**

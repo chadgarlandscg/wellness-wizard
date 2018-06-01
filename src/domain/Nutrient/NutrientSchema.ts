@@ -1,6 +1,6 @@
 import {Entity, Column, PrimaryColumn, OneToOne, OneToMany} from 'typeorm';
-import { DailyValueSchema } from '../DailyValue/DailyValueSchema';
-import { FoodNutritionSchema } from '../FoodNutrition/FoodNutritionSchema';
+import { DailyValueSchema, DailyValueDto } from '../DailyValue/DailyValueSchema';
+import { FoodNutritionSchema, FoodNutritionDto } from '../FoodNutrition/FoodNutritionSchema';
 import { HIDE } from '../../util/DecoratorHelper';
 
 export interface NutrientDto {
@@ -11,8 +11,8 @@ export interface NutrientDto {
     num_dec: string;
     sr_order: number;
 
-    dailyValue: DailyValueSchema;
-    foodNutritions: FoodNutritionSchema[];
+    dailyValue: DailyValueDto;
+    foodNutritions: FoodNutritionDto[];
 }
 
 /**

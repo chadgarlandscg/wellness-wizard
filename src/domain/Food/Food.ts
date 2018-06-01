@@ -1,6 +1,6 @@
-import { FoodGroupSchema } from '../FoodGroup/FoodGroupSchema';
-import { WeightSchema } from '../Weight/WeightSchema';
-import { FoodNutritionSchema } from '../FoodNutrition/FoodNutritionSchema';
+import { FoodGroupDto } from '../FoodGroup/FoodGroupSchema';
+import { WeightDto } from '../Weight/WeightSchema';
+import { FoodNutritionDto } from '../FoodNutrition/FoodNutritionSchema';
 import { FoodDto } from './FoodSchema';
 
 export class Food {
@@ -19,9 +19,9 @@ export class Food {
         private proFactor: number,
         private fatFactor: number,
         private choFactor: number,
-        private foodGroup: FoodGroupSchema,
-        private weights: WeightSchema[],
-        private foodNutritions: FoodNutritionSchema[],
+        private foodGroup: FoodGroupDto,
+        private weights: WeightDto[],
+        private foodNutritions: FoodNutritionDto[],
     ) {}
     public get getNdbNo(){
         return this.ndbNo;
@@ -101,6 +101,6 @@ export class FoodMapper {
     }
 
     public static toFoods(foodDtos: FoodDto[]): Food[] {
-        return foodDtos.map(this.toFood);
+        return foodDtos.map(FoodMapper.toFood);
     }
 }

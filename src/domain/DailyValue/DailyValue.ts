@@ -30,6 +30,6 @@ export class DailyValueMapper {
             dailyValueDto.id);
     }
     public static toDailyValues(dailyValueDtos: DailyValueDto[]): DailyValue[] {
-        return dailyValueDtos.map(this.toDailyValue);
+        return dailyValueDtos.map(DailyValueMapper.toDailyValue);
     }
 }

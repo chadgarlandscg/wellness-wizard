@@ -1,5 +1,7 @@
 import { Member, MemberMapper } from '../Member/Member';
 import { MetabolicEventDto } from './MetabolicEventSchema';
+import { UsdaSelectionEvent, UsdaSelectionEventMapper } from '../UsdaSelectionEvent/UsdaSelectionEvent';
+import { UsdaSelection } from '../UsdaSelection/UsdaSelection';
 
 export class MetabolicEvent {
     constructor(
@@ -11,6 +13,8 @@ export class MetabolicEvent {
         public occurredTime: Date,
 
         public member: Member,
+        public usdaSelectionEvents: UsdaSelectionEvent[],
+        public usdaSelections?: UsdaSelection[],
     ) {
     }
 }
@@ -26,11 +30,12 @@ export class MetabolicEventMapper {
             occurred_time: metabolicEvent.occurredTime,
 
             member: metabolicEvent.member && MemberMapper.toMemberDto(metabolicEvent.member),
+            usdaSelectionEvents: metabolicEvent.usdaSelectionEvents && UsdaSelectionEventMapper.toUsdaSelectionEventDtos(metabolicEvent.usdaSelectionEvents),
         };
     }
 
     public static toMetabolicEventDtos(metabolicEvents: MetabolicEvent[]): MetabolicEventDto[] {
-        return metabolicEvents.map(this.toMetabolicEventDto);
+        return metabolicEvents.map(MetabolicEventMapper.toMetabolicEventDto);
     }
 
     public static toMetabolicEvent(metabolicEventDto: MetabolicEventDto): MetabolicEvent {
@@ -43,10 +48,11 @@ export class MetabolicEventMapper {
             metabolicEventDto.occurred_time,
 
             metabolicEventDto.member && MemberMapper.toMember(metabolicEventDto.member),
+            metabolicEventDto.usdaSelectionEvents && UsdaSelectionEventMapper.toUsdaSelectionEvents(metabolicEventDto.usdaSelectionEvents),
         );
     }
 
     public static toMetabolicEvents(metabolicEventDtos: MetabolicEventDto[]): MetabolicEvent[] {
-        return metabolicEventDtos.map(this.toMetabolicEvent);
+        return metabolicEventDtos.map(MetabolicEventMapper.toMetabolicEvent);
     }
 }

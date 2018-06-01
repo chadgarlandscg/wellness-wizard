@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryColumn, JoinColumn, ManyToOne} from 'typeorm';
-import { FoodSchema } from '../Food/FoodSchema';
+import { FoodSchema, FoodDto } from '../Food/FoodSchema';
 import { HIDE } from '../../util/DecoratorHelper';
 
 export interface WeightDto {
@@ -12,7 +12,7 @@ export interface WeightDto {
     num_data_pts: number;
     std_dev: number;
 
-    food: FoodSchema;
+    food: FoodDto;
 }
 
 /**

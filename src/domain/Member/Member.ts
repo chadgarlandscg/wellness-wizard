@@ -66,6 +66,6 @@ export class MemberMapper {
     }
 
     public static toMembers(memberDtos: MemberDto[]): Member[] {
-        return memberDtos.map(this.toMember);
+        return memberDtos.map(MemberMapper.toMember);
     }
 }

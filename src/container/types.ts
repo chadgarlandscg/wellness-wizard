@@ -7,6 +7,14 @@ const TYPES = {
     MetabolicEventDao: Symbol('MetabolicEventDao'),
     MetabolicEventRepository: Symbol('MetabolicEventRepository'),
 
+    UsdaSelectionService: Symbol('UsdaSelectionService'),
+    UsdaSelectionDao: Symbol('UsdaSelectionDao'),
+    UsdaSelectionRepository: Symbol('UsdaSelectionRepository'),
+
+    UsdaSelectionEventService: Symbol('UsdaSelectionEventService'),
+    UsdaSelectionEventDao: Symbol('UsdaSelectionEventDao'),
+    UsdaSelectionEventRepository: Symbol('UsdaSelectionEventRepository'),
+
     DailyValueService: Symbol('DailyValueService'),
     DailyValueDao: Symbol('DailyValueDao'),
     DailyValueRepository: Symbol('DailyValueRepository'),

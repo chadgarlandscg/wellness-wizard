@@ -1,11 +1,11 @@
 import {Entity, Column, PrimaryColumn, JoinColumn, OneToMany} from 'typeorm';
-import { FoodSchema } from '../Food/FoodSchema';
+import { FoodSchema, FoodDto } from '../Food/FoodSchema';
 
 export interface FoodGroupDto {
     fdgrp_cd: string;
     fdgrp_desc: string;
 
-    foods: FoodSchema[];
+    foods: FoodDto[];
 }
 
 /**
