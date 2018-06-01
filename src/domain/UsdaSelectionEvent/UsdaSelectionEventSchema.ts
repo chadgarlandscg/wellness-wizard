@@ -1,13 +1,14 @@
-import {Entity, PrimaryColumn, ManyToOne, JoinColumn, ManyToMany} from 'typeorm';
+import {Entity, PrimaryColumn, ManyToOne, JoinColumn} from 'typeorm';
 import { MetabolicEventSchema, MetabolicEventDto } from '../MetabolicEvent/MetabolicEventSchema';
 import { UsdaSelectionSchema, UsdaSelectionDto } from '../UsdaSelection/UsdaSelectionSchema';
+import { CASCADE } from '../../util/DecoratorHelper';
 
 export interface UsdaSelectionEventDto {
     member_metabolic_event_id: number;
     usda_selection_id: number;
 
     metabolicEvent?: MetabolicEventDto;
-    usdaSelections?: UsdaSelectionDto[];
+    usdaSelection?: UsdaSelectionDto;
 }
 
 /**
@@ -23,7 +24,7 @@ export class UsdaSelectionEventSchema implements UsdaSelectionEventDto {
     @ManyToOne(type => MetabolicEventSchema, metabolicEvent => metabolicEvent.usdaSelectionEvents)
     @JoinColumn({name: 'member_metabolic_event_id'})
     public metabolicEvent: MetabolicEventSchema;
-    @ManyToMany(type => UsdaSelectionSchema, usdaSelection => usdaSelection.usdaSelectionEvents)
+    @ManyToOne(type => UsdaSelectionSchema, usdaSelection => usdaSelection.usdaSelectionEvents, CASCADE)
     @JoinColumn({name: 'usda_selection_id'})
-    public usdaSelections: UsdaSelectionSchema[];
+    public usdaSelection: UsdaSelectionSchema;
 }

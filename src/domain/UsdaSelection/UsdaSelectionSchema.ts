@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany} from 'typeorm';
 import { FoodSchema, FoodDto } from '../Food/FoodSchema';
 import { UsdaSelectionEventSchema, UsdaSelectionEventDto } from '../UsdaSelectionEvent/UsdaSelectionEventSchema';
 
@@ -29,7 +29,7 @@ export class UsdaSelectionSchema implements UsdaSelectionDto {
     @ManyToOne(type => FoodSchema, food => food.usdaSelections)
     @JoinColumn({name: 'ndb_no'})
     public food: FoodSchema[];
-    @ManyToMany(type => UsdaSelectionEventSchema, usdaSelectionEvent => usdaSelectionEvent.usdaSelections)
+    @OneToMany(type => UsdaSelectionEventSchema, usdaSelectionEvent => usdaSelectionEvent.usdaSelection)
     @JoinColumn({name: 'usda_selection_id'})
     public usdaSelectionEvents: UsdaSelectionEventSchema[];
 }

@@ -2,6 +2,7 @@ import { Member, MemberMapper } from '../Member/Member';
 import { MetabolicEventDto } from './MetabolicEventSchema';
 import { UsdaSelectionEvent, UsdaSelectionEventMapper } from '../UsdaSelectionEvent/UsdaSelectionEvent';
 import { UsdaSelection } from '../UsdaSelection/UsdaSelection';
+import { UsdaSelectionEventDto } from '../UsdaSelectionEvent/UsdaSelectionEventSchema';
 
 export class MetabolicEvent {
     constructor(
@@ -30,7 +31,8 @@ export class MetabolicEventMapper {
             occurred_time: metabolicEvent.occurredTime,
 
             member: metabolicEvent.member && MemberMapper.toMemberDto(metabolicEvent.member),
-            usdaSelectionEvents: metabolicEvent.usdaSelectionEvents && UsdaSelectionEventMapper.toUsdaSelectionEventDtos(metabolicEvent.usdaSelectionEvents),
+            // usdaSelectionEvents: metabolicEvent.usdaSelectionEvents && UsdaSelectionEventMapper.toUsdaSelectionEventDtos(metabolicEvent.usdaSelectionEvents),
+            usdaSelectionEvents: metabolicEvent.usdaSelectionEvents && MetabolicEventMapper.toUsdaSelectionEventDtos(metabolicEvent.usdaSelectionEvents),
         };
     }
 
@@ -54,5 +56,19 @@ export class MetabolicEventMapper {
 
     public static toMetabolicEvents(metabolicEventDtos: MetabolicEventDto[]): MetabolicEvent[] {
         return metabolicEventDtos.map(MetabolicEventMapper.toMetabolicEvent);
+    }
+
+    public static toUsdaSelectionEventDtos(usdaSelectionEvents: (UsdaSelectionEvent | UsdaSelection)[]): UsdaSelectionEventDto[] {
+        return usdaSelectionEvents.map(MetabolicEventMapper.toUsdaSelectionEventDtoFromUsdaEventOrSelection);
+    }
+
+    public static toUsdaSelectionEventDtoFromUsdaEventOrSelection(usdaSelectionOrEvent: (UsdaSelectionEvent | UsdaSelection)): UsdaSelectionEventDto {
+        let usdaSelectionEvent: UsdaSelectionEvent;
+        if (usdaSelectionOrEvent.usdaSelectionId) {
+            usdaSelectionEvent = usdaSelectionOrEvent as UsdaSelectionEvent;
+        } else {
+            usdaSelectionEvent = new UsdaSelectionEvent(null, null, usdaSelectionOrEvent as UsdaSelection);
+        }
+        return UsdaSelectionEventMapper.toUsdaSelectionEventDto(usdaSelectionEvent);
     }
 }
