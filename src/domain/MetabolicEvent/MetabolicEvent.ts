@@ -67,7 +67,9 @@ export class MetabolicEventMapper {
         if (usdaSelectionOrEvent.usdaSelectionId) {
             usdaSelectionEvent = usdaSelectionOrEvent as UsdaSelectionEvent;
         } else {
-            usdaSelectionEvent = new UsdaSelectionEvent(null, null, usdaSelectionOrEvent as UsdaSelection);
+            usdaSelectionEvent = new UsdaSelectionEvent({
+                usdaSelection: usdaSelectionOrEvent as UsdaSelection,
+            });
         }
         return UsdaSelectionEventMapper.toUsdaSelectionEventDto(usdaSelectionEvent);
     }

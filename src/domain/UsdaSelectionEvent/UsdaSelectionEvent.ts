@@ -2,12 +2,22 @@ import { UsdaSelectionEventDto } from './UsdaSelectionEventSchema';
 import { UsdaSelection, UsdaSelectionMapper } from '../UsdaSelection/UsdaSelection';
 
 export class UsdaSelectionEvent {
-    constructor(
-        public memberMetabolicEventId: number,
-        public usdaSelectionId: number,
+    public memberMetabolicEventId?: number;
+    public usdaSelectionId?: number;
 
-        public usdaSelection?: UsdaSelection
-    ) {}
+    public usdaSelection?: UsdaSelection;
+    constructor(usdaSelectionEvent: UsdaSelectionEvent = {} as UsdaSelectionEvent) {
+        let {
+            memberMetabolicEventId = undefined,
+            usdaSelectionId = undefined,
+
+            usdaSelection = undefined,
+        } = usdaSelectionEvent;
+
+        this.memberMetabolicEventId = memberMetabolicEventId;
+        this.usdaSelectionId = usdaSelectionId;
+        this.usdaSelection = usdaSelection;
+    }
 }
 
 export class UsdaSelectionEventMapper {
@@ -24,12 +34,11 @@ export class UsdaSelectionEventMapper {
     }
 
     public static toUsdaSelectionEvent(usdaSelectionEventDto: UsdaSelectionEventDto): UsdaSelectionEvent {
-        return new UsdaSelectionEvent(
-            usdaSelectionEventDto.member_metabolic_event_id,
-            usdaSelectionEventDto.usda_selection_id,
-
-            usdaSelectionEventDto.usdaSelection && UsdaSelectionMapper.toUsdaSelection(usdaSelectionEventDto.usdaSelection),
-        );
+        return new UsdaSelectionEvent({
+            memberMetabolicEventId: usdaSelectionEventDto.member_metabolic_event_id,
+            usdaSelectionId: usdaSelectionEventDto.usda_selection_id,
+            usdaSelection: usdaSelectionEventDto.usdaSelection && UsdaSelectionMapper.toUsdaSelection(usdaSelectionEventDto.usdaSelection),
+        });
     }
 
     public static toUsdaSelectionEvents(usdaSelectionEventDtos: UsdaSelectionEventDto[]): UsdaSelectionEvent[] {
