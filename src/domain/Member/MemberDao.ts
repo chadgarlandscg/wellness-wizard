@@ -5,7 +5,6 @@ import {MemberDto, MemberSchema} from './MemberSchema';
 
 export interface MemberDao {
     create(member: MemberDto): Promise<MemberDto>;
-    findAll(): Promise<MemberDto[]>;
     find(id: string): Promise<MemberDto>;
     search(query: string): Promise<MemberDto[]>;
 }
@@ -17,9 +16,6 @@ export class MemberDaoImpl implements MemberDao {
 
     public async create(member: MemberDto): Promise<MemberDto> {
         return await this.memberRepository.save(member);
-    }
-    public async findAll(): Promise<MemberDto[]> {
-        return await this.memberRepository.find();
     }
     public async find(id: string): Promise<MemberDto> {
         return await this.memberRepository.findOne(id, {relations: ['metabolicEvents']});

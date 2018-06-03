@@ -5,7 +5,6 @@ import {MetabolicEventDao} from './MetabolicEventDao';
 
 export interface MetabolicEventService {
     createMetabolicEvent(metabolicEvent: MetabolicEvent): Promise<MetabolicEvent>;
-    getMetabolicEvents(): Promise<MetabolicEvent[]>;
     getMetabolicEvent(id: string): Promise<MetabolicEvent>;
     searchMetabolicEvents(query: string): Promise<MetabolicEvent[]>;
 }
@@ -20,19 +19,11 @@ export class MetabolicEventServiceImpl implements MetabolicEventService {
         const newMetabolicEvent = MetabolicEventMapper.toMetabolicEvent(newMetabolicEventDto);
         return newMetabolicEvent;
     }
-
-    public async getMetabolicEvents(): Promise<MetabolicEvent[]> {
-        return await this.metabolicEventDao
-            .findAll()
-            .then(MetabolicEventMapper.toMetabolicEvents);
-    }
-
     public async getMetabolicEvent(id: string): Promise<MetabolicEvent> {
         return await this.metabolicEventDao
             .find(id)
             .then(MetabolicEventMapper.toMetabolicEvent);
     }
-
     public async searchMetabolicEvents(query: string): Promise<MetabolicEvent[]> {
         return await this.metabolicEventDao
             .search(query)

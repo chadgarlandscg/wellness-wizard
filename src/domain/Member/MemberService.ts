@@ -6,7 +6,6 @@ import MetabolicProfile from './MetabolicProfile';
 
 export interface MemberService {
     createMember(member: Member): Promise<Member>;
-    getMembers(): Promise<Member[]>;
     getMember(id: string): Promise<Member>;
     searchMembers(query: string): Promise<Member[]>;
 }
@@ -22,13 +21,6 @@ export class MemberServiceImpl implements MemberService {
         newMember.metabolicProfile = new MetabolicProfile(newMember);
         return newMember;
     }
-
-    public async getMembers(): Promise<Member[]> {
-        return await this.memberDao
-            .findAll()
-            .then(MemberMapper.toMembers);
-    }
-
     public async getMember(id: string): Promise<Member> {
         return await this.memberDao
             .find(id)

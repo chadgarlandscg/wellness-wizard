@@ -14,10 +14,6 @@ export class MemberController implements interfaces.Controller {
     private async create(req: express.Request, res: express.Response, next: express.NextFunction) {
         return await this.memberService.createMember(req.body);
     }
-    @httpGet('/')
-    private async findAll(req: express.Request, res: express.Response, next: express.NextFunction) {
-        return await this.memberService.getMembers().catch(err => next(err));
-    }
     @httpGet('/:id')
     private async findOne(@requestParam('id') id: string, res: express.Response, next: express.NextFunction) {
         return await this.memberService.getMember(id).catch(err => next(err));

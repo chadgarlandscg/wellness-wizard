@@ -14,10 +14,6 @@ export class UsdaSelectionController implements interfaces.Controller {
     private async create(req: express.Request, res: express.Response, next: express.NextFunction) {
         return await this.usdaSelectionService.createUsdaSelection(req.body);
     }
-    @httpGet('/')
-    private async findAll(req: express.Request, res: express.Response, next: express.NextFunction) {
-        return await this.usdaSelectionService.getUsdaSelections().catch(err => next(err));
-    }
     @httpGet('/:id')
     private async findOne(@requestParam('id') id: string, res: express.Response, next: express.NextFunction) {
         return await this.usdaSelectionService.getUsdaSelection(id).catch(err => next(err));

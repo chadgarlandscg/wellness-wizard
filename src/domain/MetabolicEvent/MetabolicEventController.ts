@@ -14,10 +14,6 @@ export class MetabolicEventController implements interfaces.Controller {
     private async create(req: express.Request, res: express.Response, next: express.NextFunction) {
         return await this.metabolicEventService.createMetabolicEvent(req.body);
     }
-    @httpGet('/')
-    private async findAll(req: express.Request, res: express.Response, next: express.NextFunction) {
-        return await this.metabolicEventService.getMetabolicEvents().catch(err => next(err));
-    }
     @httpGet('/:id')
     private async findOne(@requestParam('id') id: string, res: express.Response, next: express.NextFunction) {
         return await this.metabolicEventService.getMetabolicEvent(id).catch(err => next(err));

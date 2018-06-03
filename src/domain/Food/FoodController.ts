@@ -10,10 +10,6 @@ export class FoodController implements interfaces.Controller {
     @inject(TYPES.FoodService)
     private foodService: FoodService;
 
-    @httpGet('/')
-    private async findAll(req: express.Request, res: express.Response, next: express.NextFunction) {
-        return await this.foodService.getFoods().catch(err => next(err));
-    }
     @httpGet('/:id')
     private async findOne(@requestParam('id') id: string, res: express.Response, next: express.NextFunction) {
         return await this.foodService.getFood(id).catch(err => next(err));

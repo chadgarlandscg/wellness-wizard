@@ -5,7 +5,6 @@ import {UsdaSelectionDto, UsdaSelectionSchema} from './UsdaSelectionSchema';
 
 export interface UsdaSelectionDao {
     create(usdaSelection: UsdaSelectionDto): Promise<UsdaSelectionDto>;
-    findAll(): Promise<UsdaSelectionDto[]>;
     find(id: string): Promise<UsdaSelectionDto>;
     search(query: string): Promise<UsdaSelectionDto[]>;
 }
@@ -17,9 +16,6 @@ export class UsdaSelectionDaoImpl implements UsdaSelectionDao {
 
     public async create(usdaSelection: UsdaSelectionDto): Promise<UsdaSelectionDto> {
         return await this.usdaSelectionRepository.save(usdaSelection);
-    }
-    public async findAll(): Promise<UsdaSelectionDto[]> {
-        return await this.usdaSelectionRepository.find();
     }
     public async find(id: string): Promise<UsdaSelectionDto> {
         return await this.usdaSelectionRepository.findOne(id);
