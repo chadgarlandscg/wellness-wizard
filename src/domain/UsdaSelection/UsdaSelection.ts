@@ -1,12 +1,24 @@
 import { UsdaSelectionDto } from './UsdaSelectionSchema';
 
 export class UsdaSelection {
+    public usdaSelectionId?: number;
+    public ndbNo?: string;
+    public weightId?: number;
+    public servings?: number;
     constructor(
-        public usdaSelectionId: number,
-        public ndbNo: string,
-        public weightId: number,
-        public servings: number,
-    ) {}
+        usdaSelection: UsdaSelection = {} as UsdaSelection
+    ) {
+        let {
+            usdaSelectionId,
+            ndbNo,
+            weightId,
+            servings,
+        } = usdaSelection;
+        this.usdaSelectionId = usdaSelectionId;
+        this.ndbNo = ndbNo;
+        this.weightId = weightId;
+        this.servings = servings;
+    }
 }
 
 export class UsdaSelectionMapper {
@@ -23,12 +35,12 @@ export class UsdaSelectionMapper {
     }
 
     public static toUsdaSelection(usdaSelectionDto: UsdaSelectionDto): UsdaSelection {
-        return new UsdaSelection(
-            usdaSelectionDto.usda_selection_id,
-            usdaSelectionDto.ndb_no,
-            usdaSelectionDto.weight_id,
-            usdaSelectionDto.servings,
-        );
+        return new UsdaSelection({
+            usdaSelectionId: usdaSelectionDto.usda_selection_id,
+            ndbNo: usdaSelectionDto.ndb_no,
+            weightId: usdaSelectionDto.weight_id,
+            servings: usdaSelectionDto.servings,
+        });
     }
 
     public static toUsdaSelections(usdaSelectionDtos: UsdaSelectionDto[]): UsdaSelection[] {

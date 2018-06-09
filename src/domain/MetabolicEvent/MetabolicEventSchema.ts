@@ -45,5 +45,4 @@ export class MetabolicEventSchema implements MetabolicEventDto {
     @OneToMany(type => UsdaSelectionEventSchema, usdaSelectionEvent => usdaSelectionEvent.metabolicEvent, CASCADE)
     @JoinColumn({name: 'member_metabolic_event_id'})
     public usdaSelectionEvents: UsdaSelectionEventSchema[];
-
 }

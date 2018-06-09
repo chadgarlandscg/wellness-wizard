@@ -1,7 +1,7 @@
 import { Member, MemberMapper } from '../Member/Member';
 import { MetabolicEventDto } from './MetabolicEventSchema';
 import { UsdaSelectionEvent, UsdaSelectionEventMapper } from '../UsdaSelectionEvent/UsdaSelectionEvent';
-import { UsdaSelection } from '../UsdaSelection/UsdaSelection';
+import { UsdaSelection, UsdaSelectionMapper } from '../UsdaSelection/UsdaSelection';
 import { UsdaSelectionEventDto } from '../UsdaSelectionEvent/UsdaSelectionEventSchema';
 
 export class MetabolicEvent {
@@ -14,7 +14,6 @@ export class MetabolicEvent {
         public occurredTime: Date,
 
         public member: Member,
-        public usdaSelectionEvents: UsdaSelectionEvent[],
         public usdaSelections?: UsdaSelection[],
     ) {
     }
@@ -32,7 +31,7 @@ export class MetabolicEventMapper {
 
             member: metabolicEvent.member && MemberMapper.toMemberDto(metabolicEvent.member),
             // usdaSelectionEvents: metabolicEvent.usdaSelectionEvents && UsdaSelectionEventMapper.toUsdaSelectionEventDtos(metabolicEvent.usdaSelectionEvents),
-            usdaSelectionEvents: metabolicEvent.usdaSelectionEvents && MetabolicEventMapper.toUsdaSelectionEventDtos(metabolicEvent.usdaSelectionEvents),
+            usdaSelectionEvents: metabolicEvent.usdaSelections && MetabolicEventMapper.toUsdaSelectionEventDtos(metabolicEvent.usdaSelections),
         };
     }
 
@@ -50,7 +49,12 @@ export class MetabolicEventMapper {
             metabolicEventDto.occurred_time,
 
             metabolicEventDto.member && MemberMapper.toMember(metabolicEventDto.member),
-            metabolicEventDto.usdaSelectionEvents && UsdaSelectionEventMapper.toUsdaSelectionEvents(metabolicEventDto.usdaSelectionEvents),
+            metabolicEventDto.usdaSelectionEvents
+                && UsdaSelectionMapper.toUsdaSelections(
+                    metabolicEventDto.usdaSelectionEvents.map(
+                        usdaSelectionEvent => usdaSelectionEvent.usdaSelection
+                    )
+                ),
         );
     }
 
@@ -58,19 +62,13 @@ export class MetabolicEventMapper {
         return metabolicEventDtos.map(MetabolicEventMapper.toMetabolicEvent);
     }
 
-    public static toUsdaSelectionEventDtos(usdaSelectionEvents: (UsdaSelectionEvent | UsdaSelection)[]): UsdaSelectionEventDto[] {
-        return usdaSelectionEvents.map(MetabolicEventMapper.toUsdaSelectionEventDtoFromUsdaEventOrSelection);
+    public static toUsdaSelectionEventDtos(usdaSelectionEvents: UsdaSelection[]): UsdaSelectionEventDto[] {
+        return usdaSelectionEvents.map(MetabolicEventMapper.toUsdaSelectionEventDto);
     }
 
-    public static toUsdaSelectionEventDtoFromUsdaEventOrSelection(usdaSelectionOrEvent: (UsdaSelectionEvent | UsdaSelection)): UsdaSelectionEventDto {
-        let usdaSelectionEvent: UsdaSelectionEvent;
-        if (usdaSelectionOrEvent.usdaSelectionId) {
-            usdaSelectionEvent = usdaSelectionOrEvent as UsdaSelectionEvent;
-        } else {
-            usdaSelectionEvent = new UsdaSelectionEvent({
-                usdaSelection: usdaSelectionOrEvent as UsdaSelection,
-            });
-        }
-        return UsdaSelectionEventMapper.toUsdaSelectionEventDto(usdaSelectionEvent);
+    public static toUsdaSelectionEventDto(usdaSelection: UsdaSelection): UsdaSelectionEventDto {
+        return UsdaSelectionEventMapper.toUsdaSelectionEventDto(new UsdaSelectionEvent({
+            usdaSelection: usdaSelection as UsdaSelection,
+        }));
     }
 }

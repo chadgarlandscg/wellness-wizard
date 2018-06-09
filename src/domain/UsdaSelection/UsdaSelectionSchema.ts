@@ -1,6 +1,7 @@
 import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany} from 'typeorm';
 import { FoodSchema, FoodDto } from '../Food/FoodSchema';
 import { UsdaSelectionEventSchema, UsdaSelectionEventDto } from '../UsdaSelectionEvent/UsdaSelectionEventSchema';
+import { EAGER } from '../../util/DecoratorHelper';
 
 export interface UsdaSelectionDto {
     usda_selection_id: number;
@@ -30,6 +31,5 @@ export class UsdaSelectionSchema implements UsdaSelectionDto {
     @JoinColumn({name: 'ndb_no'})
     public food: FoodSchema[];
     @OneToMany(type => UsdaSelectionEventSchema, usdaSelectionEvent => usdaSelectionEvent.usdaSelection)
-    @JoinColumn({name: 'usda_selection_id'})
     public usdaSelectionEvents: UsdaSelectionEventSchema[];
 }

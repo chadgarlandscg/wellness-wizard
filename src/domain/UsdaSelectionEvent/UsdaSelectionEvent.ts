@@ -8,10 +8,10 @@ export class UsdaSelectionEvent {
     public usdaSelection?: UsdaSelection;
     constructor(usdaSelectionEvent: UsdaSelectionEvent = {} as UsdaSelectionEvent) {
         let {
-            memberMetabolicEventId = undefined,
-            usdaSelectionId = undefined,
+            memberMetabolicEventId,
+            usdaSelectionId,
 
-            usdaSelection = undefined,
+            usdaSelection,
         } = usdaSelectionEvent;
 
         this.memberMetabolicEventId = memberMetabolicEventId;
@@ -44,4 +44,13 @@ export class UsdaSelectionEventMapper {
     public static toUsdaSelectionEvents(usdaSelectionEventDtos: UsdaSelectionEventDto[]): UsdaSelectionEvent[] {
         return usdaSelectionEventDtos.map(UsdaSelectionEventMapper.toUsdaSelectionEvent);
     }
+    // public static toUsdaSelection(usdaSelectionEventDto: UsdaSelectionEventDto): UsdaSelection {
+    //     return new UsdaSelection(
+    //         usdaSelectionId: usdaSelectionEventDto.usda_selection_id,
+    //         usdaSelection: usdaSelectionEventDto.usdaSelection && UsdaSelectionMapper.toUsdaSelection(usdaSelectionEventDto.usdaSelection),
+    //     })
+    // }
+    // public static toUsdaSelections(usdaSelectionEventDtos: UsdaSelectionEventDto[]): UsdaSelection[] {
+    //     return usdaSelectionEventDtos.map(UsdaSelectionEventMapper.toUsdaSelection);
+    // }
 }

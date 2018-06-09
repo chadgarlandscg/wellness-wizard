@@ -1,4 +1,4 @@
-import {Repository, Like} from 'typeorm';
+import {Repository} from 'typeorm';
 import {injectable, inject} from 'inversify';
 import TYPES from '../../container/types';
 import {MetabolicEventDto, MetabolicEventSchema} from './MetabolicEventSchema';
@@ -22,12 +22,14 @@ export class MetabolicEventDaoImpl implements MetabolicEventDao {
         return await this.metabolicEventRepository.find();
     }
     public async find(id: string): Promise<MetabolicEventDto> {
-        return await this.metabolicEventRepository.findOne(id, {relations: ['member']});
+        return await this.metabolicEventRepository.findOne(id, {
+            relations: ['usdaSelectionEvents']
+        });
     }
     public async search(query: string): Promise<MetabolicEventDto[]> {
         return await this.metabolicEventRepository.find({
             where: {
-                description: Like(`%${query}%`),
+                // description: Like(`%${query}%`),
             },
             take: 5,
             cache: true,
