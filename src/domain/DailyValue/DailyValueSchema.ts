@@ -5,7 +5,7 @@ export interface DailyValueDto {
     id?: number;
     units: string;
     value: number;
-    nutr_no: string;
+    nutrNo: string;
 
     nutrient: NutrientDto;
 }
@@ -22,7 +22,7 @@ export class DailyValueSchema implements DailyValueDto {
     @Column()
     public value: number;
     @Column()
-    public nutr_no: string;
+    public nutrNo: string;
 
     @OneToOne(type => NutrientSchema, nutrient => nutrient.dailyValue)
     @JoinColumn({name: 'nutr_no'})

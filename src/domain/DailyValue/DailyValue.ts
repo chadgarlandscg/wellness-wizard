@@ -14,7 +14,7 @@ export class DailyValueMapper {
         return new DailyValue(
             dailyValueDto.units,
             dailyValueDto.value,
-            dailyValueDto.nutr_no,
+            dailyValueDto.nutrNo,
             dailyValueDto.id);
     }
     public static toDailyValues(dailyValueDtos: DailyValueDto[]): DailyValue[] {
